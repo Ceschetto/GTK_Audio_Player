@@ -1,6 +1,7 @@
 {
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",
     "files.associations": {
-        "numbers": "c"
+        "numbers": "c",
+        "gtk_interface.h": "c"
     }
 }
