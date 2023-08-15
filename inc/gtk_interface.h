@@ -1,4 +1,4 @@
 #include <gtk/gtk.h>
 
 
-void draw_app(GtkApplication *app);
+GtkApplication *app_init(void);

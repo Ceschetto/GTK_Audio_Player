@@ -1,7 +1,13 @@
 #include "../inc/gtk_interface.h"
 
+void draw_app(GtkApplication *app);
 
-
+GtkApplication *app_init(void)
+{
+    GtkApplication *app = gtk_application_new("audio.player.tt", G_APPLICATION_DEFAULT_FLAGS);
+    g_signal_connect(app, "activate", G_CALLBACK(draw_app), app);
+    return app;
+}
 
 void draw_app(GtkApplication *app)
 {
