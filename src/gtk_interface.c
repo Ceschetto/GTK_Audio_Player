@@ -16,8 +16,9 @@ void draw_app(GtkApplication *app)
     GtkWidget *window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "Ciao Bellezza");
     gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
-    
-    printf("\n The number of file found is: %d", count_number_of_file("."));
+
+    g_print("\n The number of file found is: %d\n", count_number_of_file("."));
+
 
 
     

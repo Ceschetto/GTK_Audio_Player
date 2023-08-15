@@ -4,7 +4,7 @@
 #include <sys/types.h>
 #include <stdio.h>
 
-int count_number_of_file(const char const *DirectoryPath)
+int count_number_of_file(const char  *DirectoryPath)
 {
 
     int FileNumber = 0;
@@ -19,7 +19,11 @@ int count_number_of_file(const char const *DirectoryPath)
     else
     {
         
-        while((DirFileDataPtr = readdir(directoryPtr)) != NULL)  FileNumber++;
+        while((DirFileDataPtr = readdir(directoryPtr)) != NULL)
+        {
+            if(DirFileDataPtr->d_name[0] == '.') continue;
+            FileNumber++;
+        }  
         
     }
 

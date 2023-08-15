@@ -1,1 +1,1 @@
-int count_number_of_file(const char const*DirectoryPath);
+int count_number_of_file(const char *DirectoryPath);
