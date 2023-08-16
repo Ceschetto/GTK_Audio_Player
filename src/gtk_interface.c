@@ -18,6 +18,7 @@ void draw_app(GtkApplication *app)
     gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
 
     g_print("\n The number of file found is: %d\n", count_number_of_file("."));
+    print_FNList(enlist_files_name("."));
 
 
 
