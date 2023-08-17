@@ -6,14 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct _FileNamesList
-{
-    char *FileName;
-    struct _FileNamesList *NextFileName;
-};
 
-typedef struct _FileNamesList FileNameNode;
-typedef struct _FileNamesList *FileNameNodePtr;
 
 
 
@@ -66,6 +59,8 @@ FileNameNodePtr enlist_files_name(const char *DirectoryPath)
 
         while ((DirFileDataPtr = readdir(directoryPtr)) != NULL)
         {
+            if (DirFileDataPtr->d_name[0] == '.') continue;  // schippiamo i file nascosti
+
             FileNameNodePtr NewNodePtr = init_new_node(DirFileDataPtr->d_name);
 
             if(FNListHeader == NULL)
@@ -127,3 +122,9 @@ void print_FNList(FileNameNodePtr currentNode)
 }
 
 
+
+
+FileNameNodePtr get_next_file_node(FileNameNodePtr currentFileNode)
+{
+    return currentFileNode->NextFileName;
+}
