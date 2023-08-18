@@ -1,7 +1,20 @@
 #include "../inc/gtk_interface.h"
 #include "../inc/file_manager.h"
 
+
+struct gen_list_box_data
+{
+    GtkWidget *ListB;
+    GtkEntryBuffer *EntryBuffer;
+
+};
+
+
+void gen_list_box(void * data);
 void draw_app(GtkApplication *app);
+
+
+
 
 GtkApplication *app_init(void)
 {
@@ -47,26 +60,34 @@ void draw_app(GtkApplication *app)
     GtkWidget *listBox = gtk_list_box_new(); 
     gtk_box_append(GTK_BOX(rightBox), listBox);
 
-//Use it con il g_signal_connect del bottone per ricreare ogni volta la lista
-//!!!!!Questo presenta problemi di memory leak da risolvere
-    gtk_entry_buffer_get_text(EntryTextBuffer);
-    
-    
-    GtkWidget *label = NULL;
 
-    FileNameNodePtr currentFileNode;
-    currentFileNode = enlist_files_name( );
+    struct gen_list_box_data *buttonData = ( struct gen_list_box_data *) calloc(1, sizeof( struct gen_list_box_data));
+    buttonData->EntryBuffer = EntryTextBuffer;
+    buttonData->ListB = listBox;
 
-    while (currentFileNode != NULL)
-    {
-        label = gtk_label_new(currentFileNode->FileName);
-        gtk_list_box_append(GTK_LIST_BOX(listBox), label);
-        currentFileNode = get_next_file_node(currentFileNode);
-    }
+    g_signal_connect_swapped(button, "clicked", G_CALLBACK(gen_list_box), buttonData);
+
 
     gtk_widget_set_visible(window, true);
 }
 
 
+void gen_list_box(void * data)
+{
+    //calcallare la precedente ricerca prima di generare un'altra lista
+    struct gen_list_box_data *dataPtr = (struct gen_list_box_data *) data;
 
+    GtkWidget *label = NULL;
+
+    FileNameNodePtr currentFileNode;
+    currentFileNode = enlist_files_name(gtk_entry_buffer_get_text(dataPtr->EntryBuffer));
+
+    while (currentFileNode != NULL)
+    {
+        label = gtk_label_new(currentFileNode->FileName);
+        gtk_list_box_append(GTK_LIST_BOX(dataPtr->ListB), label);
+        currentFileNode = get_next_file_node(currentFileNode);
+    }    
+
+}
 
