@@ -98,7 +98,14 @@ void test_func(GtkWidget *listB)
 {
     //dopo aver fatto questa macumba per ottere il label dalla box list, possiamo passarlo al player audio vero e proprio.
     //forse si può migliorare e alleggerire il programma rimuovendo i label e utilizzando gli header della listbox
-   puts(gtk_label_get_text( GTK_LABEL(gtk_list_box_row_get_child(gtk_list_box_get_selected_row(GTK_LIST_BOX(listB))))));
+    const char * fileName = gtk_label_get_text( GTK_LABEL(gtk_list_box_row_get_child(gtk_list_box_get_selected_row(GTK_LIST_BOX(listB)))));
 
+    if( isAudioFile(fileName))
+    {
 
+    }
+    else
+    {
+        puts("File selezionato non è un file audio.");
+    }
 }

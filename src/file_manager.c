@@ -121,6 +121,10 @@ void print_FNList(FileNameNodePtr currentNode)
 
 }
 
+bool isAudioFile(const char *fileName)
+{
+    return false;
+}
 
 
 

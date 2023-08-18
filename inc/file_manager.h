@@ -1,4 +1,4 @@
-
+#include <stdbool.h>
 struct FileNamesList
 {
     char *FileName;
@@ -12,3 +12,4 @@ FileNameNodePtr enlist_files_name(const char *DirectoryPath);
 void free_FNList(FileNameNodePtr currentNode);
 void print_FNList(FileNameNodePtr currentNode);
 FileNameNodePtr get_next_file_node(FileNameNodePtr currentFileNode);
+bool isAudioFile(const char *fileName);
