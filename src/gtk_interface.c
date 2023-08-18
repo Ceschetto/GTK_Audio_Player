@@ -10,6 +10,9 @@ struct gen_list_box_data
 };
 
 
+
+void test_func(GtkWidget *listB);
+
 void gen_list_box(void * data);
 void draw_app(GtkApplication *app);
 
@@ -66,8 +69,6 @@ void draw_app(GtkApplication *app)
     buttonData->ListB = listBox;
 
     g_signal_connect_swapped(button, "clicked", G_CALLBACK(gen_list_box), buttonData);
-
-
     gtk_widget_set_visible(window, true);
 }
 
@@ -86,8 +87,18 @@ void gen_list_box(void * data)
     {
         label = gtk_label_new(currentFileNode->FileName);
         gtk_list_box_append(GTK_LIST_BOX(dataPtr->ListB), label);
+        //vedere il comportamento delle list box e i loro signals
         currentFileNode = get_next_file_node(currentFileNode);
-    }    
+    }
+    g_signal_connect_swapped( dataPtr->ListB, "row-activated", G_CALLBACK(test_func), dataPtr->ListB);
 
 }
 
+void test_func(GtkWidget *listB)
+{
+    //dopo aver fatto questa macumba per ottere il label dalla box list, possiamo passarlo al player audio vero e proprio.
+    //forse si può migliorare e alleggerire il programma rimuovendo i label e utilizzando gli header della listbox
+   puts(gtk_label_get_text( GTK_LABEL(gtk_list_box_row_get_child(gtk_list_box_get_selected_row(GTK_LIST_BOX(listB))))));
+
+
+}
